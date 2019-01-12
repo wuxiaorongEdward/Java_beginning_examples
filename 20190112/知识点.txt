@@ -1,0 +1,115 @@
+内部类： 把一个类定义在一个类的内部
+               内部类的位置：
+                        成员位置：成员内部类
+                        局部位置：局部内部类
+         特点： A；可以直接使用外部内的所有成员，包括私有
+                B: 外部内要使用内部类，要创建对象
+为什么要这样用： 是为了使用外部内的私有成员
+                         本质：现实生活中有这样的现象
+
+1、直接使用格式： 外部类名.内部类名 对象名= 外部类对象。内部类对象
+                   Outer.Inner oi = new Outer().new Inner();
+
+2、在外部类中创建方法，在方法中创建对象
+
+使用那些修饰符修饰成员内部类：
+    private :保证数据的安全，只能在本类中使用方法调用
+    static： 方便调用，可以直接在外部类中使用类名调用
+
+                                如果内部类被静态修饰，那么，限定就不再是外部类对象了，而直接是外类名。
+		格式：外部类名.内部类名 变量 = new 外部类名.内部类();  
+                                 Outer.Inner oi = new Outer.Inner();
+                                 oi.method()
+
+                                 Outer.Inner.method();   (内部类的方法也需要用static 修饰)
+
+内部类在内部的局部位置：
+                可以访问外部中的成员
+	  面试题：  可以访问局部成员，但是必须被final 修饰，why?  
+                因为局部变量使用完就消失了，这个时候还要使用局部变量，使用final 修饰延长变量的生命周期 ,类在局部，
+				可以访问外部类的成员，可以访问局部成员吗？
+			    可以，但是局部成员必须被final修饰。因为局部变量用完
+			    就会消失，而内部类还在内存中，这个时候它还想继续使用
+			    局部变量，所以为了延长教育部变狼的生命周期用final修饰。
+			    （final修饰的成员的生命周期和类的生命周期一样长）
+  
+
+      匿名内部内：属于局部内部类 （是一个对象）
+      前提： 存在一个类和或者接口
+                格式：  new 类名或者接口名() [
+                             重写父类/接口的方法/或者自己定义方法
+                         }；
+                 解释： 创建一个匿名的子类对象
+                    调用时： 类名/接口名  var = new 类名或者接口名() [
+                             重写父类/接口的方法/或者自己定义方法
+                         }；
+                       var.method();
+
+包： 其实是文件夹
+作用:对类进行管理，让相同的类放在不同的包
+     使用格式：定义  package 包名.包名.........
+                      使用import packge
+
+带包的编译和运行：
+            1、手动创建包         
+                    通过javac命令编译文件
+                    创建包 ./cn/itcast
+                    class文件放到最终包./cn/itcast中
+                    通过java命令执行，这个时候注意写全类的全路径
+                    java cn.itcast.HelloWorld
+            2、编译时指明路径 javac -d .  HelloWorld.java
+                    使用时一定要带包名
+                    运行时： java cn.itcast.HelloWorld
+
+            3、不同包的访问：先编译被使用的类，再编译测试类
+                             这个时候由于不在同一个路径下，要使用
+                            全路径、权限要足够大public
+              这个时候如果我们多处使用，这样使用麻烦
+              java 提供了导包技术
+              import
+ 面试中：  package import class 的出现顺序
+                package > import > class
+
+权限修饰：
+4:权限修饰符(掌握)
+ 	        (1)用于保证在不同的情况下可以使用
+	        (2)使用如下
+				本类	同一个包下	不同包下的子类	不同包下的无关类
+		private		Y
+		默认		Y	Y
+		protected	Y	Y		Y
+		public		Y	Y		Y		Y
+
+5:权限修饰符的组合使用及常见使用(掌握)
+	
+		类   成员变量	     构造方法	    成员方法
+private			Y		Y		Y	
+默认		Y	Y		Y		Y
+protected		Y		Y		Y
+public		Y	Y		Y		Y
+abstract	Y					Y
+final		Y	Y				Y
+static			Y				Y
+
+常见的组合规则：
+	权限修饰符+abstract/final/static+...
+
+我们到底怎么用：
+	类：
+		public class Demo {
+		
+		}
+
+	成员变量：
+		变量：private String name;
+		常量：public static final int X = 10;
+
+	构造方法：
+		不让外界创建：private Demo(){}
+		大部分：public Demo(){}
+
+	成员方法：
+		不让外界用：private void show(){}
+		大部分：public void method()
+		抽象方法：public abstract void function();
+
