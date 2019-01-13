@@ -1,0 +1,111 @@
+IDE:
+        Eclipse
+		MyEclipse = Eclipse + 插件
+		Netbeans(AWT  图形)
+		
+	    Eclipse:免费开源，由Java写的，所以需要一个JRE(这就是为什么要先安装JDK(JRE))
+		MyEclipse: 收费的，自己带有JRE，安装时可以不从新安装JDK
+	
+	
+	程序的编译环境和运行环境：
+	 window  -> preference -> java ->  Installed JREs
+	 
+快捷键：
+   内容辅助： Alt + /  起提示作用
+   自动补全main方法  main然后alt + /
+   自动补全输出语句：  syso 然后alt + /
+   a:  格式化代码ctrl + shift + f (右键  -> source > format)
+   b: 自动导包ctrl + shift + o  (自己写完代码需要导入包)
+        有些通过alt + / 提示的会自动导入
+   c:注释：  
+         单行注释
+		         选中注释的内容ctrl + /
+                 取消同样的操作	 选中取消注释的内容ctrl + /	
+         多行注释
+		         选中注释的内容ctrl + /
+				 选中注释的内容  选中注释的内容ctrl + shift + /
+                 取消同样的操作	 选中取消注释的内容ctrl + shift + \	
+				 
+				 选中变大写  ctrl + shift + X
+				 选中变小写  ctrl + shift + y
+				 
+				 选中  alt + 是上/下键移动
+				 
+			制作帮助文档：
+			      首先编写源文件
+				  针对源文件添加文档注释
+				  选中项目---右键---export--java ---javadoc
+				   
+				   
+			如何打jar包，以及如何使用jar包
+			  jar  是多个class的压缩包
+			  选中项目---右键---export--java ---jar
+			  jar包如何用：用于把别人写好的包直接拿来用
+			    怎么用： 找到jar包，---> 复制jar包粘贴到要使用的项目
+				  ---->  把jar 添加到classpath(选中jar包，右键build path)
+  自动生成set/get  source -> generate set.get
+   写构造方法： 
+        无参：source  from superclass
+        有参： source  from fields
+		 
+如果继承类或实现接口，请在创建时选中这些内容
+
+@override  注解
+     作用是标记重写，如果由任何问题，就会出错
+	 
+断点调试
+    断点就是一个标记
+	在每一个方法的第一条语句加
+	
+toString():  直接输出对象的名称直接调用对象的toString()方法
+任何对象的输出，默认都是该对象的toString()方法
+当我们使用一个方法，而这个类没有定义该方法，我们就想到了该方法来自父类。
+任何类没有写继承具体的类的时候，其实就是默认继承Object类
+Object：是所有的类超类，所有类都直接或间接继承Object类
+
+重写toString()方法： tos 然后 alt + /  (右键source中由这个重写的快捷键)
+equals()方法：默认是比较两个对象的地址是否相同，
+是就返回true; 不是就返回false
+一般来说比较两个对象的地址值是没有意义的
+所以我们重写equals()方法，比较两个对象的值就由意义l
+==：  比较基本类型，比较的是基本类型的值是否相同
+       比较引用类型，比较引用类型的地址值是否相同
+equals: 
+      只能比较引用类型，默认比较地址值
+      如果想比较内容，则要自己重写equals（）方法，equals(Object obj) {
+	  //提高代码的效率
+	  if(this == obj) {
+	      return true;
+	  }
+	  
+	  //为了提高代码的健壮性
+	  //instanceof关键字： 检查某个对象是否是某个类的对象
+	  //格式： 对象 instanceof 类名
+	  //返回true or false
+	  
+	  if( !(obj instanceof Student)) {
+	          return false;
+	  }
+	  //重写是涉及到一个向下类型转换
+	      Student s = (Student) obj;
+		//  if(this.name == s.name && this.age == age) {
+		//        return true;
+		//  }
+		//  else {
+		//        return false;
+		//  }
+		
+		return this.name.equals(s.name) && this.age == s.age;
+	  }
+	  equals方法也可以自动生成重写，在source 中
+String类重写了toString()方法，用于比较两个字符串的内容是否相同
+
+面试题： == 和 equals()的区别？
+==：
+    可以用来比较基本类型，也可以用来比较引用类型
+     比较基本类型时是比较基本类型的值是否相同，比较引用类型时是比较地址值是否相同。
+equals()
+    只能用来比较引用类型，默认的是比较两个引用类型的地址值是否相同
+    如果需要比较对象的内容，则需要重写equals()方法。	
+	  
+	  
